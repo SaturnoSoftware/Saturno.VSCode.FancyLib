@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "rootDir": "..",
+    "baseUrl": "..",
+    "outDir": "../out",
+    "types": ["node"]
+  },
+  "include": [
+    "./**/*.test.ts",
+    "../src/CommentSyntax.ts",
+    "../src/CommentSyntaxCore.ts",
+    "../src/Types.ts",
+    "../src/Utils.ts",
+    "../src/ConfigUtils.ts",
+    "../src/index.ts"
+  ],
+  "exclude": ["../node_modules"]
+}
