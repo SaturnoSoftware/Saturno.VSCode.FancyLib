@@ -7,7 +7,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/SaturnoSoftware/Saturno.VSCodeKit.git"
+    "url": "https://github.com/SaturnoSoftware/vscode-fancy-lib.git"
   },
   "main": "./out/src/index.js",
   "types": "./out/src/index.d.ts",
