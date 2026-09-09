@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 declare module "node:test" {
   export function describe(name: string, fn: () => void): void;
   export function it(name: string, fn: () => void): void;
