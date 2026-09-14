@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert";
-import { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "../src/Utils";
+import { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "../Source/Utils";
 
 describe("clamp", () => {
   it("should return the value when it is within the range", () => {

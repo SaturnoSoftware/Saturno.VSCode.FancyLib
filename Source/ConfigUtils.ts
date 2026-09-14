@@ -8,17 +8,25 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : index.ts                                                       //
-// Project   : Saturno.VSCodeKit                                              //
-// Date      : 2026-05-19                                                     //
+// File      : ConfigUtils.ts                                                 //
+// Project   : Saturno.FancyLib                                               //
+// Date      : 2026-09-01                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
 
-export { CommentSyntax } from "./Types";
-export { getCommentSyntax, getCommentSyntaxForEditor } from "./CommentSyntax";
-export { resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-export type { LanguageComments } from "./CommentSyntaxCore";
-export { getActiveEditor, getActiveFilePath, showError } from "./EditorUtils";
-export { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "./Utils";
-export { getConfigValue } from "./ConfigUtils";
+import * as vscode from "vscode";
+
+/**
+ * Gets a configuration value from VS Code workspace settings.
+ * This is a type-safe wrapper around vscode.workspace.getConfiguration().get().
+ */
+
+// -----------------------------------------------------------------------------
+export function getConfigValue<T>(
+  configSection: string,
+  key: string,
+  defaultValue: T
+): T {
+  return vscode.workspace.getConfiguration(configSection).get<T>(key, defaultValue);
+}

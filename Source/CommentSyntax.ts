@@ -9,27 +9,30 @@
 //                                                                            //
 //                                                                            //
 // File      : CommentSyntax.ts                                               //
-// Project   : Saturno.VSCodeKit                                              //
+// Project   : Saturno.FancyLib                                              //
 // Date      : 2026-05-19                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
 
+// -----------------------------------------------------------------------------
 import * as fs from "fs";
 import * as path from "path";
 import * as JSON5 from "json5";
 import * as vscode from "vscode";
+// -----------------------------------------------------------------------------
 import { CommentSyntax } from "./Types";
 import { LanguageComments, resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-
+// -----------------------------------------------------------------------------
 export { CommentSyntax };
+
 
 // -----------------------------------------------------------------------------
 export function getCommentSyntax(languageId: string): CommentSyntax | null {
   const comments = getLanguageComments(languageId);
   const syntax = resolveCommentSyntaxFromComments(comments);
   if (!syntax) {
-    console.error(`[Saturno.VSCodeKit] Unsupported comment configuration for language "${languageId}"`);
+    console.error(`[Saturno.FancyLib] Unsupported comment configuration for language "${languageId}"`);
     return null;
   }
 

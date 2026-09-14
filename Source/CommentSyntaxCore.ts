@@ -9,7 +9,7 @@
 //                                                                            //
 //                                                                            //
 // File      : CommentSyntaxCore.ts                                           //
-// Project   : Saturno.VSCodeKit                                              //
+// Project   : Saturno.FancyLib                                              //
 // Date      : 2026-05-28                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
@@ -17,13 +17,16 @@
 
 import { CommentSyntax } from "./Types";
 
+// -----------------------------------------------------------------------------
 export interface LanguageComments {
   lineComment?: string;
   blockComment?: [string, string];
 }
 
 // -----------------------------------------------------------------------------
-export function resolveCommentSyntaxFromComments(comments: LanguageComments | null | undefined): CommentSyntax | null {
+export function resolveCommentSyntaxFromComments(
+  comments: LanguageComments | null | undefined
+): CommentSyntax | null {
   if (!comments) {
     return null;
   }

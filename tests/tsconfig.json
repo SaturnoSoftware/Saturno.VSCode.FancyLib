@@ -13,12 +13,12 @@
   },
   "include": [
     "./**/*.test.ts",
-    "../src/CommentSyntax.ts",
-    "../src/CommentSyntaxCore.ts",
-    "../src/Types.ts",
-    "../src/Utils.ts",
-    "../src/ConfigUtils.ts",
-    "../src/index.ts"
+    "../Source/CommentSyntax.ts",
+    "../Source/CommentSyntaxCore.ts",
+    "../Source/Types.ts",
+    "../Source/Utils.ts",
+    "../Source/ConfigUtils.ts",
+    "../Source/index.ts"
   ],
   "exclude": ["../node_modules"]
 }

@@ -8,30 +8,20 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : EditorUtils.ts                                                 //
-// Project   : Saturno.VSCodeKit                                              //
+// File      : index.ts                                                       //
+// Project   : Saturno.FancyLib                                              //
 // Date      : 2026-05-19                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
 
-import * as vscode from "vscode";
+// -----------------------------------------------------------------------------
+export { CommentSyntax } from "./Types";
+export { getCommentSyntax, getCommentSyntaxForEditor } from "./CommentSyntax";
+export { resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
+export { getActiveEditor, getActiveFilePath, showError } from "./EditorUtils";
+export { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "./Utils";
+export { getConfigValue } from "./ConfigUtils";
 
 // -----------------------------------------------------------------------------
-export function getActiveEditor(): vscode.TextEditor | undefined {
-  return vscode.window.activeTextEditor;
-}
-
-// -----------------------------------------------------------------------------
-export function getActiveFilePath(): string | null {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    return null;
-  }
-  return editor.document.uri.fsPath;
-}
-
-// -----------------------------------------------------------------------------
-export function showError(message: string): void {
-  vscode.window.showErrorMessage(message);
-}
+export type { LanguageComments } from "./CommentSyntaxCore";
