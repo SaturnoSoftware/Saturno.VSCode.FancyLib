@@ -1,0 +1,30 @@
+{
+  "name": "saturno-vscodekit",
+  "displayName": "Saturno.VSCodeKit",
+  "description": "Shared kit for the Saturno Fancy VS Code extensions: comment-syntax resolution, editor helpers, typed configuration reads and value normalisation.",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SaturnoSoftware/Saturno.VSCodeKit.git"
+  },
+  "main": "./out/src/index.js",
+  "types": "./out/src/index.d.ts",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "compile": "tsc -p tests/tsconfig.json",
+    "test": "npm run compile && node --test out/tests/*.test.js",
+    "lint": "eslint src tests --ext ts"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "typescript": "^5.4.0"
+  }
+}
