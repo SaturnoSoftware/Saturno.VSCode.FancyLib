@@ -9,7 +9,7 @@
 //                                                                            //
 //                                                                            //
 // File      : EditorUtils.ts                                                 //
-// Project   : Saturno.FancyLib                                              //
+// Project   : Saturno.VSCode.FancyLib                                        //
 // Date      : 2026-05-19                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //

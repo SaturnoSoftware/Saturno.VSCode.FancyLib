@@ -18,6 +18,7 @@
     "../Source/Types.ts",
     "../Source/Utils.ts",
     "../Source/ConfigUtils.ts",
+    "../Source/EditorUtils.ts",
     "../Source/index.ts"
   ],
   "exclude": ["../node_modules"]

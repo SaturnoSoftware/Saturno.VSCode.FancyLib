@@ -1,4 +1,4 @@
-# Saturno.VSCodeKit - agent guide
+# Saturno.VSCode.FancyLib - agent guide
 
 Thin pointer, per `_SATURNO_BRAIN/CONTEXT/SATURNO/STANDARDS/documentation/AI-TOOL-CONFIG.md`.
 Nothing here restates a rule that lives somewhere canonical.
@@ -34,7 +34,7 @@ and that is expected.
 ## What this repo is
 
 The library shared by the three Fancy extensions, consumed as a **git submodule** at
-`libs/Saturno.VSCodeKit`, not as an npm package. Before changing anything, read
+`libs/Saturno.VSCode.FancyLib`, not as an npm package. Before changing anything, read
 `_SATURNO/docs/ARCHITECTURE.md` - especially the cut between what depends on `vscode` and
 what does not, which is what keeps the core testable.
 
@@ -50,7 +50,7 @@ Tracking lives in `saturno-tasker`, project `SATURNO.VSCODEKIT`:
 
 What is missing is known: `package.json` and versioning (VSCODEKIT-0013), its own CI
 (VSCODEKIT-0014), review against the styleguide (VSCODEKIT-0015), and the rename to
-`Saturno.FancyLib` (VSCODEKIT-0010 and 0011).
+`Saturno.VSCode.FancyLib` (VSCODEKIT-0010 and 0011).
 
 ## Shared operational memory (mandatory)
 

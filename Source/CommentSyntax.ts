@@ -9,7 +9,7 @@
 //                                                                            //
 //                                                                            //
 // File      : CommentSyntax.ts                                               //
-// Project   : Saturno.FancyLib                                              //
+// Project   : Saturno.VSCode.FancyLib                                        //
 // Date      : 2026-05-19                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
@@ -33,7 +33,7 @@ export function getCommentSyntax(languageId: string): CommentSyntax | null {
   const comments = getLanguageComments(languageId);
   const syntax = resolveCommentSyntaxFromComments(comments);
   if (!syntax) {
-    console.error(`[Saturno.FancyLib] Unsupported comment configuration for language "${languageId}"`);
+    console.error(`[Saturno.VSCode.FancyLib] Unsupported comment configuration for language "${languageId}"`);
     return null;
   }
 

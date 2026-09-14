@@ -1,4 +1,4 @@
-# Saturno.VSCodeKit - testes
+# Saturno.VSCode.FancyLib - testes
 
 ## O que existe
 
@@ -12,13 +12,13 @@ codigo com regra de verdade nao depende do editor, entao o teste tambem nao.
 
 ## Como rodam hoje, e o problema disso
 
-**O repositorio nao tem `package.json`**, entao nao ha `npm test` proprio. Os testes so rodam
-quando um consumidor os compila - e um unico consumidor faz isso:
+O repositorio tem `package.json` e seu proprio `npm test`. Os consumidores tambem compilam a
+biblioteca para provar a integracao:
 
-    vscode-fancy-header    "test": "... && tsc -p libs/Saturno.VSCodeKit/tests/tsconfig.json && node --test ... out/libs/Saturno.VSCodeKit/tests/*.test.js"
+    Saturno.VSCode.FancyHeader    "test": "... && tsc -p Libraries/Saturno.VSCode.FancyLib/tests/tsconfig.json && node --test ... out/Libraries/Saturno.VSCode.FancyLib/tests/*.test.js"
 
-O Fancy Comments e o Fancy Align **nao** compilam a lib no teste deles. Ou seja: uma quebra aqui
-so aparece automaticamente por um caminho, num repositorio de terceiro. Para uma biblioteca com
+O Fancy Comments tambem compila a lib no teste. O Fancy Align ainda precisa adotar essa mesma
+verificacao. Para uma biblioteca com
 tres consumidores, e pouco.
 
 Consertar isso e a VSCODEKIT-0013 (`package.json`, que da um `npm test` proprio) mais a

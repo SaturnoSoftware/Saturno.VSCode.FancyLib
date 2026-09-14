@@ -1,4 +1,4 @@
-# Saturno.VSCodeKit - produto
+# Saturno.VSCode.FancyLib - produto
 
 ## Para quem existe
 
@@ -32,9 +32,9 @@ para configuracao vinda do usuario, que chega como qualquer coisa.
 
 ## O nome
 
-O repositorio se chama `Saturno.VSCodeKit` e vai ser renomeado para **`Saturno.FancyLib`**
-(VSCODEKIT-0010, decidido em 2026-08-28). A razao: `VSCodeKit` descreve a tecnologia, `FancyLib`
-descreve a familia que ela serve - que e o que ela de fato e.
+O repositorio se chama `Saturno.VSCode.FancyLib`. O nome foi consolidado no GitHub e nos
+consumidores pela VSCODEKIT-0010 e VSCODEKIT-0011. `VSCode` declara a plataforma e `FancyLib`
+declara a familia que ela serve.
 
 O commit de raiz atual ja se chama "Saturno FancyLib". O prefixo de task no tasker continua
 `VSCODEKIT` de proposito, porque id de task e endereco permanente.
