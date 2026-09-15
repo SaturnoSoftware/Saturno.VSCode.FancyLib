@@ -30,3 +30,9 @@ export type { LanguageComments } from "./CommentSyntaxCore";
 // VSCODEKIT-0018: the shared "Open Bug" development-only capability's pure
 // domain. See DevBugReport/index.ts's own header for the full export list.
 export * from "./DevBugReport";
+
+// -----------------------------------------------------------------------------
+// VSCODEKIT-0020: the Open Bug panel workflow orchestrated against injected
+// ports - see DevBugReportPanel.ts's own header for why it lives outside
+// DevBugReport/ despite never importing vscode itself.
+export * from "./DevBugReportPanel";

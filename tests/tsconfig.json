@@ -27,7 +27,8 @@
     "../Source/DevBugReport/MarkdownEscape.ts",
     "../Source/DevBugReport/FileName.ts",
     "../Source/DevBugReport/Storage.ts",
-    "../Source/DevBugReport/index.ts"
+    "../Source/DevBugReport/index.ts",
+    "../Source/DevBugReportPanel.ts"
   ],
   "exclude": ["../node_modules"]
 }
