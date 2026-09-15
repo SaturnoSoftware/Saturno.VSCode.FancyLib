@@ -341,6 +341,11 @@ describe("Domain boundary (VSCODEKIT-0018): no vscode, filesystem, Git, Tasker, 
     "https", "node:https",
     "net", "node:net",
   ];
+  // Storage.ts (VSCODEKIT-0019) is the one sanctioned local-file-sink
+  // exception to the "no filesystem" rule - it still may never import
+  // vscode, child_process or a network module, which the loop below checks
+  // by filtering FORBIDDEN_MODULES down instead of skipping the file.
+  const FILE_NAME_WITH_SANCTIONED_FS_ACCESS = "Storage.ts";
 
   function sourceFiles(): string[] {
     return fs
@@ -353,16 +358,21 @@ describe("Domain boundary (VSCODEKIT-0018): no vscode, filesystem, Git, Tasker, 
     assert.ok(sourceFiles().length >= 5);
   });
 
-  it("no file in DevBugReport/ imports vscode, fs, child_process or a network module", () => {
+  it("no file in DevBugReport/ imports vscode, child_process or a network module, and only Storage.ts may import fs", () => {
     const importLine = /^\s*import\s+.*\sfrom\s+["']([^"']+)["']/gm;
     for (const filePath of sourceFiles()) {
+      const fileName = path.basename(filePath);
+      const allowsFs = fileName === FILE_NAME_WITH_SANCTIONED_FS_ACCESS;
+      const forbiddenForThisFile = allowsFs
+        ? FORBIDDEN_MODULES.filter((moduleName) => moduleName !== "fs" && moduleName !== "node:fs")
+        : FORBIDDEN_MODULES;
       const source = fs.readFileSync(filePath, "utf8");
       let match: RegExpExecArray | null;
       while ((match = importLine.exec(source)) !== null) {
         const moduleName = match[1];
         assert.ok(
-          !FORBIDDEN_MODULES.includes(moduleName) && !moduleName.startsWith("vscode"),
-          `${path.basename(filePath)} imports forbidden module "${moduleName}"`
+          !forbiddenForThisFile.includes(moduleName) && !moduleName.startsWith("vscode"),
+          `${fileName} imports forbidden module "${moduleName}"`
         );
       }
     }

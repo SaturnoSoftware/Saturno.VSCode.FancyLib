@@ -23,6 +23,12 @@ export { renderBugReportMarkdown } from "./Renderer";
 export { MAX_EVIDENCE_LENGTH, TRUNCATION_MARKER, redactSecrets, sanitizeEvidence, truncateEvidence } from "./Redaction";
 export { escapeInline, fenceForContent, toFencedBlock } from "./MarkdownEscape";
 export { buildReportFileName, formatTimestampForFileName, slugify } from "./FileName";
+export {
+  DestinationRefusedError,
+  buildOpenableUri,
+  reserveReportFile,
+  resolveDestinationDirectory,
+} from "./Storage";
 
 // -----------------------------------------------------------------------------
 export type {
@@ -42,3 +48,4 @@ export type {
   UntitledDocumentReference,
   ValidationDiagnostic,
 } from "./Types";
+export type { StoredReport } from "./Storage";
