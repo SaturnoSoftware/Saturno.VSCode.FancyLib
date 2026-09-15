@@ -9,8 +9,6 @@
     "type": "git",
     "url": "https://github.com/SaturnoSoftware/Saturno.VSCode.FancyLib.git"
   },
-  "main": "./out/Source/index.js",
-  "types": "./out/Source/index.d.ts",
   "engines": {
     "node": ">=18"
   },
@@ -25,6 +23,9 @@
   "devDependencies": {
     "@types/node": "18.x",
     "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.57.0",
     "typescript": "^5.4.0"
   }
 }
