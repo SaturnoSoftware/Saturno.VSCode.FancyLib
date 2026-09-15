@@ -10,23 +10,35 @@
 //                                                                            //
 // File      : index.ts                                                       //
 // Project   : Saturno.VSCode.FancyLib                                        //
-// Date      : 2026-05-19                                                     //
+// Date      : 2026-09-15                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
+// SPDX-License-Identifier: GPL-3.0-only
 
 // -----------------------------------------------------------------------------
-export { CommentSyntax } from "./Types";
-export { getCommentSyntax, getCommentSyntaxForEditor } from "./CommentSyntax";
-export { resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-export { getActiveEditor, getActiveFilePath, showError } from "./EditorUtils";
-export { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "./Utils";
-export { getConfigValue } from "./ConfigUtils";
+export { REPORT_SCHEMA_VERSION, isOmitted } from "./Types";
+export { createBugReport, validateBugReportInput } from "./Report";
+export { renderBugReportMarkdown } from "./Renderer";
+export { MAX_EVIDENCE_LENGTH, TRUNCATION_MARKER, redactSecrets, sanitizeEvidence, truncateEvidence } from "./Redaction";
+export { escapeInline, fenceForContent, toFencedBlock } from "./MarkdownEscape";
+export { buildReportFileName, formatTimestampForFileName, slugify } from "./FileName";
 
 // -----------------------------------------------------------------------------
-export type { LanguageComments } from "./CommentSyntaxCore";
-
-// -----------------------------------------------------------------------------
-// VSCODEKIT-0018: the shared "Open Bug" development-only capability's pure
-// domain. See DevBugReport/index.ts's own header for the full export list.
-export * from "./DevBugReport";
+export type {
+  BuildChannel,
+  BugReport,
+  CreateBugReportInput,
+  CursorPosition,
+  DocumentReference,
+  EditorDocumentReference,
+  EnvironmentInfo,
+  EvidenceSelection,
+  GitIdentity,
+  Omittable,
+  OmissionReason,
+  Omitted,
+  SelectionRange,
+  UntitledDocumentReference,
+  ValidationDiagnostic,
+} from "./Types";

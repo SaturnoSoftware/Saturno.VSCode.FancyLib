@@ -19,7 +19,14 @@
     "../Source/Utils.ts",
     "../Source/ConfigUtils.ts",
     "../Source/EditorUtils.ts",
-    "../Source/index.ts"
+    "../Source/index.ts",
+    "../Source/DevBugReport/Types.ts",
+    "../Source/DevBugReport/Report.ts",
+    "../Source/DevBugReport/Renderer.ts",
+    "../Source/DevBugReport/Redaction.ts",
+    "../Source/DevBugReport/MarkdownEscape.ts",
+    "../Source/DevBugReport/FileName.ts",
+    "../Source/DevBugReport/index.ts"
   ],
   "exclude": ["../node_modules"]
 }
