@@ -36,3 +36,8 @@ export * from "./DevBugReport";
 // ports - see DevBugReportPanel.ts's own header for why it lives outside
 // DevBugReport/ despite never importing vscode itself.
 export * from "./DevBugReportPanel";
+
+// -----------------------------------------------------------------------------
+// VSCODEKIT-0021: the build-channel isolation contract every consumer's own
+// production-artifact acceptance test checks a real build against.
+export * from "./BuildIsolation";

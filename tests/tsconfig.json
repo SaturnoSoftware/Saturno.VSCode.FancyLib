@@ -28,7 +28,8 @@
     "../Source/DevBugReport/FileName.ts",
     "../Source/DevBugReport/Storage.ts",
     "../Source/DevBugReport/index.ts",
-    "../Source/DevBugReportPanel.ts"
+    "../Source/DevBugReportPanel.ts",
+    "../Source/BuildIsolation.ts"
   ],
   "exclude": ["../node_modules"]
 }
