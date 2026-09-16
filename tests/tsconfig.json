@@ -27,6 +27,7 @@
     "../Source/DevBugReport/MarkdownEscape.ts",
     "../Source/DevBugReport/FileName.ts",
     "../Source/DevBugReport/Storage.ts",
+    "../Source/DevBugReport/Transport.ts",
     "../Source/DevBugReport/index.ts",
     "../Source/DevBugReportPanel.ts",
     "../Source/BuildIsolation.ts"

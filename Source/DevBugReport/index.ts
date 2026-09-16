@@ -29,6 +29,7 @@ export {
   reserveReportFile,
   resolveDestinationDirectory,
 } from "./Storage";
+export { disabledBugReportTransport } from "./Transport";
 
 // -----------------------------------------------------------------------------
 export type {
@@ -49,3 +50,4 @@ export type {
   ValidationDiagnostic,
 } from "./Types";
 export type { StoredReport } from "./Storage";
+export type { BugReportTransport, TransportResult } from "./Transport";
