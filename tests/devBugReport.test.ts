@@ -328,11 +328,27 @@ describe("Deterministic rendering", () => {
   });
 });
 
+/** __dirname is the compiled out/tests/ directory - the source-text scan
+ *  needs the real .ts files. A fixed "two levels up" only holds when this
+ *  project's own tests/tsconfig.json compiled the file; a consumer that
+ *  compiles this test as part of its own npm test (FancyComments does, for
+ *  example) nests the output deeper. package.json's own resolution
+ *  (packageContract.test.ts) hit the same problem: dropping the first "out"
+ *  path segment maps the compiled directory back to its source counterpart
+ *  regardless of nesting depth, since rootDir/tsconfig structure is
+ *  preserved 1:1 either way. */
+// -----------------------------------------------------------------------------
+function compiledDirToSourceDir(compiledDir: string): string {
+  const segments = compiledDir.split(path.sep);
+  const outIndex = segments.lastIndexOf("out");
+  if (outIndex === -1) {
+    return compiledDir;
+  }
+  return [...segments.slice(0, outIndex), ...segments.slice(outIndex + 1)].join(path.sep);
+}
+
 describe("Domain boundary (VSCODEKIT-0018): no vscode, filesystem, Git, Tasker, Brain or network import", () => {
-  // __dirname is the compiled out/tests/ directory; the source-text scan
-  // needs the real .ts files, two levels up and into Source/, the same
-  // convention FancyAlign's own vscode-import tests use.
-  const DEV_BUG_REPORT_DIR = path.resolve(__dirname, "..", "..", "Source", "DevBugReport");
+  const DEV_BUG_REPORT_DIR = path.join(compiledDirToSourceDir(__dirname), "..", "Source", "DevBugReport");
   const FORBIDDEN_MODULES = [
     "vscode",
     "fs", "node:fs",
