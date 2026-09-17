@@ -3,6 +3,7 @@
   "displayName": "Saturno.VSCode.FancyLib",
   "description": "Shared kit for the Saturno Fancy VS Code extensions: comment-syntax resolution, editor helpers, typed configuration reads and value normalisation.",
   "version": "1.0.0",
+  "build": 2,
   "license": "GPL-3.0-only",
   "private": true,
   "repository": {
@@ -27,5 +28,19 @@
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
     "typescript": "^5.4.0"
+  },
+  "saturno": {
+    "cicd": {
+      "artifactPrefix": "Saturno.VSCode.FancyLib",
+      "build": {
+        "stagingRoot": "__BUILD/_staging",
+        "expectedFiles": [
+          "package.json",
+          "README.md",
+          "LICENSE.txt",
+          "Source/index.ts"
+        ]
+      }
+    }
   }
 }
