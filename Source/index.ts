@@ -15,16 +15,19 @@
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
 
+// One-stop barrel: a consumer does `import * as Fancy from ".../FancyLib/Source"`
+// and reaches every domain as `Fancy.EditorUtils.X()`, `Fancy.GitUtils.X()`, etc.
 // -----------------------------------------------------------------------------
-export { CommentSyntax } from "./Types";
-export { getCommentSyntax, getCommentSyntaxForEditor } from "./CommentSyntax";
-export { resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-export { getActiveEditor, getActiveFilePath, showError } from "./EditorUtils";
-export { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "./Utils";
-export { getConfigValue } from "./ConfigUtils";
-
-// -----------------------------------------------------------------------------
-export type { LanguageComments } from "./CommentSyntaxCore";
+export * as ConfigUtils from "./ConfigUtils";
+export * as EditorUtils from "./EditorUtils";
+export * as CommentUtils from "./CommentUtils";
+export * as CommentDetection from "./CommentDetection";
+export * as FileUtils from "./FileUtils";
+export * as GitUtils from "./GitUtils";
+export * as DateUtils from "./DateUtils";
+export * as OSUtils from "./OSUtils";
+export * as LogUtils from "./LogUtils";
+export * as Utils from "./Utils";
 
 // -----------------------------------------------------------------------------
 // VSCODEKIT-0018: the shared "Open Bug" development-only capability's pure

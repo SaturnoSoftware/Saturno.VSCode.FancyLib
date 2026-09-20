@@ -8,32 +8,33 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : CommentSyntax.ts                                               //
+// File      : CommentDetection.ts                                            //
 // Project   : Saturno.VSCode.FancyLib                                        //
-// Date      : 2026-05-19                                                     //
+// Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
+
+// The VS Code side of comment-syntax lookup: reads a language's comment
+// configuration from the active extensions. Split out of CommentUtils.ts so
+// that file's pure resolver stays loadable outside the extension host.
 
 // -----------------------------------------------------------------------------
-import * as fs from "fs";
 import * as path from "path";
 import * as JSON5 from "json5";
 import * as vscode from "vscode";
 // -----------------------------------------------------------------------------
-import { CommentSyntax } from "./Types";
-import { LanguageComments, resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-// -----------------------------------------------------------------------------
-export { CommentSyntax };
-
+import * as FileUtils from "./FileUtils";
+import * as LogUtils from "./LogUtils";
+import { CommentSyntax, LanguageComments, _ResolveCommentSyntaxFromComments } from "./CommentUtils";
 
 // -----------------------------------------------------------------------------
-export function getCommentSyntax(languageId: string): CommentSyntax | null {
-  const comments = getLanguageComments(languageId);
-  const syntax = resolveCommentSyntaxFromComments(comments);
+export function GetCommentSyntax(languageId: string): CommentSyntax | null {
+  const comments = GetLanguageComments(languageId);
+  const syntax = _ResolveCommentSyntaxFromComments(comments);
   if (!syntax) {
-    console.error(`[Saturno.VSCode.FancyLib] Unsupported comment configuration for language "${languageId}"`);
+    LogUtils.Error(`Unsupported comment configuration for language "${languageId}"`);
     return null;
   }
 
@@ -41,31 +42,42 @@ export function getCommentSyntax(languageId: string): CommentSyntax | null {
 }
 
 // -----------------------------------------------------------------------------
-export function getCommentSyntaxForEditor(editor: vscode.TextEditor): CommentSyntax | null {
-  return getCommentSyntax(editor.document.languageId);
+export function GetCommentSyntaxForEditor(editor: vscode.TextEditor): CommentSyntax | null {
+  return GetCommentSyntax(editor.document.languageId);
 }
 
 // -----------------------------------------------------------------------------
-function getLanguageComments(languageId: string): LanguageComments | null {
+interface VSCodeLanguageContribution {
+  id: string;
+  configuration?: string;
+}
+
+// -----------------------------------------------------------------------------
+export function GetLanguageComments(languageId: string): LanguageComments | null {
   for (const ext of vscode.extensions.all) {
     const contributes = ext.packageJSON?.contributes;
     if (!contributes?.languages) {
       continue;
     }
 
-    const languages: any[] = contributes.languages;
-    const langDef = languages.find((l: any) => l.id === languageId);
+    const languages: VSCodeLanguageContribution[] = contributes.languages;
+    const lang_def = languages.find((l) => l.id === languageId);
 
-    if (!langDef?.configuration) {
+    if (!lang_def?.configuration) {
       continue;
     }
 
-    const configPath = path.join(ext.extensionPath, langDef.configuration);
-    if (!fs.existsSync(configPath)) {
+    const config_path = path.join(ext.extensionPath, lang_def.configuration);
+    if (!FileUtils.ExistsSync(config_path)) {
       continue;
     }
 
-    const config = JSON5.parse(fs.readFileSync(configPath, "utf8"));
+    const raw_config = FileUtils.ReadAllText(config_path);
+    if (raw_config === null) {
+      continue;
+    }
+
+    const config = JSON5.parse(raw_config);
     if (config?.comments) {
       return config.comments as LanguageComments;
     }

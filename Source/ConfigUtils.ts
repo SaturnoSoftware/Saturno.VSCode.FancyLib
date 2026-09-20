@@ -15,6 +15,7 @@
 // Author    : mateusdigital <hello@mateus.digital>                           //
 // -------------------------------------------------------------------------- //
 
+// -----------------------------------------------------------------------------
 import * as vscode from "vscode";
 
 /**
@@ -23,10 +24,20 @@ import * as vscode from "vscode";
  */
 
 // -----------------------------------------------------------------------------
-export function getConfigValue<T>(
+export function GetConfigValue<T>(
   configSection: string,
   key: string,
   defaultValue: T
 ): T {
   return vscode.workspace.getConfiguration(configSection).get<T>(key, defaultValue);
+}
+
+
+// -----------------------------------------------------------------------------
+export function GetValueFromConfig<T>(
+  config: vscode.WorkspaceConfiguration,
+  key: string,
+  defaultValue: T
+): T {
+  return config.get<T>(key, defaultValue);
 }

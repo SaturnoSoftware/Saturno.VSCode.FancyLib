@@ -20,7 +20,7 @@
  * Clamps a numeric value between a minimum and maximum value.
  */
 // -----------------------------------------------------------------------------
-export function clamp(value: number, min: number, max: number): number {
+export function Clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
@@ -29,7 +29,7 @@ export function clamp(value: number, min: number, max: number): number {
  * If the value is not finite, returns the default value.
 */
 // -----------------------------------------------------------------------------
-export function normalizeInteger(
+export function NormalizeInteger(
   value: number | undefined,
   min: number,
   max: number,
@@ -38,7 +38,7 @@ export function normalizeInteger(
   if (!Number.isFinite(value)) {
     return defaultValue;
   }
-  return clamp(Math.trunc(value as number), min, max);
+  return Clamp(Math.trunc(value as number), min, max);
 }
 
 /**
@@ -46,7 +46,7 @@ export function normalizeInteger(
  * If the input is empty or undefined, returns the default value.
  */
 // -----------------------------------------------------------------------------
-export function normalizeChar(
+export function NormalizeChar(
   char: string | undefined,
   defaultValue: string
 ): string {
@@ -61,7 +61,7 @@ export function normalizeChar(
  * Filters out non-string elements and removes carriage returns.
  */
 // -----------------------------------------------------------------------------
-export function normalizeStringArray(
+export function NormalizeStringArray(
   arr: string[] | undefined,
   defaultValue: string[]
 ): string[] {
