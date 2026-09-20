@@ -28,6 +28,7 @@ export * as DateUtils from "./DateUtils";
 export * as OSUtils from "./OSUtils";
 export * as LogUtils from "./LogUtils";
 export * as Utils from "./Utils";
+export * as About from "./About";
 
 // -----------------------------------------------------------------------------
 // VSCODEKIT-0018: the shared "Open Bug" development-only capability's pure

@@ -73,3 +73,17 @@ export function NormalizeStringArray(
     .filter((item): item is string => typeof item === "string")
     .map((item) => item.replace(/\r/g, ""));
 }
+
+/**
+ * Escapes a string for safe interpolation into HTML text or attribute
+ * content.
+ */
+// -----------------------------------------------------------------------------
+export function EscapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
