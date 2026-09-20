@@ -2,7 +2,7 @@
   "name": "saturno-fancylib",
   "displayName": "Saturno.VSCode.FancyLib",
   "description": "Shared kit for the Saturno Fancy VS Code extensions: comment-syntax resolution, editor helpers, typed configuration reads and value normalisation.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "build": 3,
   "license": "GPL-3.0-only",
   "private": true,
