@@ -1,128 +1,100 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert";
-import { RenderIconButton } from "../Source/About/IconButton";
-import { RenderAppCard } from "../Source/About/AppCard";
-import { RenderHeaderCard } from "../Source/About/HeaderCard";
-import { RenderAboutPage } from "../Source/About/Page";
-import { AboutPageModel, AppCardModel } from "../Source/About/Types";
+import { RenderAboutPage, AboutPageData } from "../Source/AboutPage/RenderAboutPage";
 
-describe("renderIconButton", () => {
-  it("renders an anchor carrying the href, label and the glyph's svg", () => {
-    const html = RenderIconButton({ Href: "https://github.com/SaturnoSoftware", Label: "GitHub", Glyph: "github" });
-    assert.match(html, /^<a class="link-btn" href="https:\/\/github\.com\/SaturnoSoftware" aria-label="GitHub" title="GitHub">/);
-    assert.match(html, /<svg/);
-    assert.match(html, /<\/a>$/);
-  });
+const TEMPLATE =
+  '<html><head><meta content="style-src {{cspSource}}; script-src \'nonce-{{nonce}}\';">' +
+  "<link href=\"{{styleUri}}\"><title>About {{extensionName}}</title></head><body>" +
+  '<img src="{{headerIconUri}}" alt="{{headerIconAlt}}"><h1>{{headerName}}</h1>' +
+  "<p>{{headerDescription}}</p><span>Version {{headerVersion}} - Build {{headerBuild}}</span>" +
+  "<span>{{headerLegal}}</span>" +
+  '<img src="{{publisherIconUri}}" alt="{{publisherIconAlt}}"><span>{{publisherName}}</span>' +
+  "<span>{{publisherDescription}}</span><div>{{publisherLinksHtml}}</div>" +
+  "<div class=\"grid\">{{moreSoftwareHtml}}</div>" +
+  '<button data-command="openChangelog">{{changelogButtonLabel}}</button>' +
+  '<script nonce="{{nonce}}"></script></body></html>';
 
-  it("escapes untrusted label and href content", () => {
-    const html = RenderIconButton({ Href: '"><script>1</script>', Label: '<b>"x"</b>', Glyph: "website" });
-    assert.doesNotMatch(html, /<script>/);
-    assert.match(html, /&lt;b&gt;&quot;x&quot;&lt;\/b&gt;/);
-  });
-});
-
-describe("renderAppCard", () => {
-  const model: AppCardModel = {
-    IconUri: "icons/gosh.webp",
-    IconAlt: "Gosh",
-    Name: "Gosh",
-    Description: "Bookmarks for your shell.",
-    Links: [{ Href: "https://github.com/SaturnoSoftware/gosh", Label: "GitHub", Glyph: "github" }],
+function buildData(overrides: Partial<AboutPageData> = {}): AboutPageData {
+  return {
+    cspSource: "vscode-webview://abc",
+    styleUri: "vscode-webview://abc/about.css",
+    extensionName: "Saturno FancyHeader",
+    nonce: "n0nce",
+    header: {
+      iconUri: "Resources/icons/icon.png",
+      iconAlt: "Saturno FancyHeader",
+      name: "Saturno FancyHeader",
+      description: "Standardize your file headers with reusable templates.",
+      version: "2.4.0",
+      build: "31",
+      legal: "Copyright 2026 Saturno Software. All rights reserved.",
+    },
+    publisher: {
+      iconUri: "Resources/icons/saturno-software.png",
+      iconAlt: "Saturno Software",
+      name: "Saturno Software",
+      description: "Discover Saturno Software solutions",
+      links: [{ href: "https://github.com/SaturnoSoftware", label: "GitHub", glyph: "github" }],
+    },
+    moreSoftware: [
+      {
+        iconUri: "Resources/icons/gosh.webp",
+        iconAlt: "Gosh",
+        name: "Gosh",
+        description: "Bookmarks for your shell.",
+        links: [{ href: "https://github.com/SaturnoSoftware/gosh", label: "GitHub", glyph: "github" }],
+      },
+    ],
+    changelogButtonLabel: "View Changelog",
+    ...overrides,
   };
+}
 
-  it("uses the publisher variant's classes and logo slot", () => {
-    const html = RenderAppCard(model, "publisher");
-    assert.match(html, /class="card app-card app-card-publisher"/);
-    assert.match(html, /class="app-card-logo"/);
+describe("renderAboutPage", () => {
+  it("fills every token with the model's data", () => {
+    const html = RenderAboutPage(TEMPLATE, buildData());
+    assert.match(html, /<h1>Saturno FancyHeader<\/h1>/);
+    assert.match(html, /Version 2\.4\.0 - Build 31/);
+    assert.match(html, /Copyright 2026 Saturno Software\. All rights reserved\./);
+    assert.match(html, /View Changelog/);
+    assert.match(html, /script-src 'nonce-n0nce';/);
+    assert.match(html, /<script nonce="n0nce">/);
   });
 
-  it("uses the tool variant's classes and icon slot", () => {
-    const html = RenderAppCard(model, "tool");
-    assert.match(html, /class="card app-card app-card-tool"/);
-    assert.match(html, /class="app-card-icon"/);
+  it("leaves no unresolved {{token}} in the output", () => {
+    const html = RenderAboutPage(TEMPLATE, buildData());
+    assert.doesNotMatch(html, /\{\{[a-zA-Z]+\}\}/);
   });
 
-  it("omits the links row entirely when there are no links", () => {
-    const html = RenderAppCard({ ...model, Links: [] }, "tool");
+  it("escapes untrusted header/publisher text", () => {
+    const data = buildData();
+    data.header.name = '<script>1</script>';
+    data.publisher.description = '"><b>x</b>';
+    const html = RenderAboutPage(TEMPLATE, data);
+    assert.doesNotMatch(html, /<script>1<\/script>/);
+    assert.match(html, /&lt;script&gt;1&lt;\/script&gt;/);
+    assert.match(html, /&quot;&gt;&lt;b&gt;x&lt;\/b&gt;/);
+  });
+
+  it("renders one link button per link, github and website glyphs included", () => {
+    const data = buildData({ moreSoftware: [] });
+    data.publisher.links = [
+      { href: "https://github.com/SaturnoSoftware", label: "GitHub", glyph: "github" },
+      { href: "https://saturno.software", label: "Website", glyph: "website" },
+    ];
+    const html = RenderAboutPage(TEMPLATE, data);
+    assert.strictEqual((html.match(/link-btn/g) ?? []).length, 2);
+  });
+
+  it("omits the links row for a tool card with no links", () => {
+    const data = buildData();
+    data.moreSoftware = [{ ...data.moreSoftware[0], links: [] }];
+    const html = RenderAboutPage(TEMPLATE, data);
     assert.doesNotMatch(html, /app-card-links/);
   });
 
-  it("renders one link button per link", () => {
-    const two_links_model: AppCardModel = {
-      ...model,
-      Links: [
-        { Href: "https://github.com/SaturnoSoftware/gosh", Label: "GitHub", Glyph: "github" },
-        { Href: "https://saturno.software", Label: "Website", Glyph: "website" },
-      ],
-    };
-    const html = RenderAppCard(two_links_model, "publisher");
-    assert.strictEqual((html.match(/link-btn/g) ?? []).length, 2);
-  });
-});
-
-describe("renderHeaderCard", () => {
-  it("renders name, description, version/build and legal line", () => {
-    const html = RenderHeaderCard({
-      IconUri: "Resources/images/icon.png",
-      IconAlt: "Saturno FancyHeader",
-      Name: "Saturno FancyHeader",
-      Description: "Standardize your file headers with reusable templates.",
-      Version: "2.2.4",
-      Build: "28",
-      Legal: "Copyright 2026 Saturno Software. All rights reserved.",
-    });
-    assert.match(html, /<h1>Saturno FancyHeader<\/h1>/);
-    assert.match(html, /Version 2\.2\.4 - Build 28/);
-    assert.match(html, /Copyright 2026 Saturno Software\. All rights reserved\./);
-  });
-});
-
-describe("renderAboutPage", () => {
-  const model: AboutPageModel = {
-    Header: {
-      IconUri: "Resources/images/icon.png",
-      IconAlt: "Saturno FancyHeader",
-      Name: "Saturno FancyHeader",
-      Description: "Standardize your file headers with reusable templates.",
-      Version: "2.2.4",
-      Build: "28",
-      Legal: "Copyright 2026 Saturno Software. All rights reserved.",
-    },
-    Publisher: {
-      IconUri: "icons/saturno-software.png",
-      IconAlt: "Saturno Software",
-      Name: "Saturno Software",
-      Description: "Discover Saturno Software solutions",
-      Links: [{ Href: "https://github.com/SaturnoSoftware", Label: "GitHub", Glyph: "github" }],
-    },
-    MoreSoftware: [
-      {
-        IconUri: "icons/gosh.webp",
-        IconAlt: "Gosh",
-        Name: "Gosh",
-        Description: "Bookmarks for your shell.",
-        Links: [{ Href: "https://github.com/SaturnoSoftware/gosh", Label: "GitHub", Glyph: "github" }],
-      },
-    ],
-    ChangelogButtonLabel: "View Changelog",
-  };
-
-  it("assembles the header card, publisher card and the software grid in order", () => {
-    const html = RenderAboutPage(model);
-    const header_index = html.indexOf("header-card");
-    const publisher_index = html.indexOf("app-card-publisher");
-    const grid_index = html.indexOf('class="grid"');
-    const button_index = html.indexOf("changelog-button");
-
-    assert.ok(header_index >= 0 && publisher_index > header_index);
-    assert.ok(grid_index > publisher_index);
-    assert.ok(button_index > grid_index);
-    assert.match(html, /View Changelog/);
-    assert.match(html, /Gosh/);
-  });
-
-  it("renders no software grid entries when there is nothing to list", () => {
-    const html = RenderAboutPage({ ...model, MoreSoftware: [] });
+  it("renders an empty grid when there is no software to list", () => {
+    const html = RenderAboutPage(TEMPLATE, buildData({ moreSoftware: [] }));
     assert.match(html, /<div class="grid"><\/div>/);
   });
 });
