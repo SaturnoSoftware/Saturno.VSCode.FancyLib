@@ -13,8 +13,8 @@
 // Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
 
 export * from "./AppCard";
 export * from "./HeaderCard";

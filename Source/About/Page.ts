@@ -13,19 +13,14 @@
 // Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
 
 import { EscapeHtml } from "../Utils";
 import { RenderAppCard } from "./AppCard";
 import { RenderHeaderCard } from "./HeaderCard";
 import { AboutPageModel } from "./Types";
 
-/**
- * Assembles the full About body: header card, publisher card and a
- * "More Software" grid - the `<main>` content of the AltTilda About mock,
- * data-driven instead of hand-written per extension.
- */
 // -----------------------------------------------------------------------------
 export function RenderAboutPage(model: AboutPageModel): string {
   const more_software_html = model.MoreSoftware.map((app) => RenderAppCard(app, "tool")).join("");

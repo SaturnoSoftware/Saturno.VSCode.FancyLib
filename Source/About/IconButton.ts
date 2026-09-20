@@ -13,16 +13,12 @@
 // Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
 
 import { EscapeHtml } from "../Utils";
 import { IconGlyphName, IconLinkModel } from "./Types";
 
-// currentColor SVGs instead of light/dark PNG pairs: a VS Code webview's
-// actual theme is the editor theme, not the OS light/dark preference the
-// original mockup toggled on - `fill`/`stroke: currentColor` tracks
-// `--vscode-foreground` automatically, in every theme, with one glyph.
 // -----------------------------------------------------------------------------
 const _GLYPHS: Record<IconGlyphName, string> = {
   github:
@@ -41,11 +37,6 @@ const _GLYPHS: Record<IconGlyphName, string> = {
     '-3.8 9c-2.4-2.4-3.8-5.6-3.8-9s1.4-6.6 3.8-9z"/></svg>',
 };
 
-/**
- * Renders a small square link button carrying one glyph, matching the
- * `.link-btn` shape from the AltTilda About mock (see PROJECTBUILDER
- * artifact "AltTilda About - Mock", comment "iconbutton components").
- */
 // -----------------------------------------------------------------------------
 export function RenderIconButton(link: IconLinkModel): string {
   const label = EscapeHtml(link.Label);

@@ -13,9 +13,10 @@
 // Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
 
+// -----------------------------------------------------------------------------
 import { EscapeHtml } from "../Utils";
 import { RenderIconButton } from "./IconButton";
 import { AppCardModel } from "./Types";
@@ -23,13 +24,6 @@ import { AppCardModel } from "./Types";
 // -----------------------------------------------------------------------------
 export type AppCardVariant = "publisher" | "tool";
 
-/**
- * Renders one app entry - icon, name, description and a row of link
- * buttons. Same component in both sizes: "publisher" is the bigger
- * Saturno Software card, "tool" is a "More Software" grid entry, which
- * normally carries fewer links (see the mock comment "same of the above
- * but with less icons and such").
- */
 // -----------------------------------------------------------------------------
 export function RenderAppCard(model: AppCardModel, variant: AppCardVariant): string {
   const card_class = variant === "publisher" ? "card app-card app-card-publisher" : "card app-card app-card-tool";

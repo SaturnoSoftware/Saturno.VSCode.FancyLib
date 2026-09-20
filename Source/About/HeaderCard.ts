@@ -13,17 +13,14 @@
 // Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
-// SPDX-License-Identifier: GPL-3.0-only
 
+
+// -----------------------------------------------------------------------------
 import { EscapeHtml } from "../Utils";
 import { AboutHeaderModel } from "./Types";
 
-/**
- * Renders the About page identity block - icon, product name,
- * description, version/build and copyright line. Matches the mock's
- * "AltTilda" hero (comment "header components").
- */
 // -----------------------------------------------------------------------------
 export function RenderHeaderCard(model: AboutHeaderModel): string {
   return (
