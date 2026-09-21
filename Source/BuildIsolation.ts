@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0021: the build-channel isolation contract every FancyLib
+ * The build-channel isolation contract every FancyLib
  * consumer's production-artifact acceptance test checks against. A build
  * script (e.g. a consumer's Scripts/build.ps1) is what actually strips dev
  * content from a production package.json and excludes dev sources from

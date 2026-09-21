@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018 / FBR-08: every field value the renderer inserts into the
+ * Every field value the renderer inserts into the
  * report goes through one of these two functions - a hostile title (Markdown
  * delimiters, a fenced-code-block terminator, control characters) must not
  * be able to corrupt the report's own structure.

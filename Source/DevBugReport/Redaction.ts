@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018 / FBR-01: user-selected text is opt-in evidence, never
+ * User-selected text is opt-in evidence, never
  * verbatim. Every string that reaches the renderer from EvidenceSelection
  * goes through here first - truncated, then scanned for common secret
  * shapes, each replaced with a labeled placeholder so a reviewer can see

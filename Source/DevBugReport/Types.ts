@@ -17,10 +17,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018: the pure domain for the shared "Open Bug" development-only
- * capability. Metadata-only by default, local-only, never a Tasker/Brain/
- * network client - see _SATURNO_BRAIN/CONTEXT/REPO/SATURNO.VSCODEKIT/
- * sessions/2026/09/2026-09-15-development-bug-reporting-grooming.md.
+ * The pure domain for the shared "Open Bug" development-only
+ * capability. Metadata-only by default, local-only, and never a tracker,
+ * knowledge-base or network client: a bug report is written to the user's
+ * own machine and goes nowhere else unless they send it themselves.
  *
  * This file and its siblings in DevBugReport/ must never import "vscode",
  * "fs", "child_process" or "http"/"https" - packageContract.test.ts and this

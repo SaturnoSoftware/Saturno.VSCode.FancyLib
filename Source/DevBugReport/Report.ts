@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018: the one place a BugReport is constructed and validated.
+ * The one place a BugReport is constructed and validated.
  * Pure - no vscode, no filesystem, no clock read (the caller supplies
  * `capturedAtUtc`), so every scenario in the adversarial review's "must fail
  * safely" list is a fixture here, not a manual click-through.

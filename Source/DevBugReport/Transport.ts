@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0022: the seam a future Saturno bug backend will plug into -
+ * The seam a future Saturno bug backend will plug into -
  * without enabling submission today. The current release writes only a
  * local report file (Storage.ts / DevBugReportPanel.ts); nothing in this
  * module, or anywhere else in DevBugReport/, ever calls a transport.
@@ -36,7 +36,7 @@ import { BugReport } from "./Types";
 export type TransportResult = { outcome: "sent" } | { outcome: "declined"; reason: string };
 
 /**
- * `dispatch` is never called by the panel today - VSCODEKIT-0020's
+ * `dispatch` is never called by the panel today - the panel's
  * DevBugReportPanelPorts has no transport slot. This interface exists so a
  * future port CAN be added there without redesigning the domain: whatever
  * calls `dispatch` is also the only thing that decided the user explicitly

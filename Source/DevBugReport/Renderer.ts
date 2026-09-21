@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018: deterministic Markdown rendering of a BugReport. Same
+ * Deterministic Markdown rendering of a BugReport. Same
  * report in, same bytes out, every time - no timestamps, random ids or
  * locale-dependent formatting introduced here (those already live in the
  * report itself). Every field goes through MarkdownEscape.ts before it

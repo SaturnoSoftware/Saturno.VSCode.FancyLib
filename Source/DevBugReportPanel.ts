@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0020: the Open Bug panel workflow, orchestrated entirely against
+ * The Open Bug panel workflow, orchestrated entirely against
  * an injected `DevBugReportPanelPorts` - this file itself never imports
  * "vscode". A consuming extension's own extension.ts is the only place that
  * wires the ports to real vscode APIs (input boxes, workspace configuration,

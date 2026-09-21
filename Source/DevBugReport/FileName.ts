@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0018: `<utc>-<extension-id>-<title>.md`, normalized so a hostile
+ * `<utc>-<extension-id>-<title>.md`, normalized so a hostile
  * title (path separators, control characters, leading dots) cannot escape
  * the intended directory or collide with a reserved name on Windows.
  */
@@ -36,7 +36,7 @@ const WINDOWS_RESERVED_NAMES = new Set([
  *  filesystem could choke on. `2026-09-15T18:04:03.123Z` becomes
  *  `20260915T180403Z` - second resolution is enough to make a collision
  *  between two genuinely distinct reports rare, and FileReservation.ts
- *  (VSCODEKIT-0019) is what actually prevents overwriting one. */
+ *  is what actually prevents overwriting one. */
 // -----------------------------------------------------------------------------
 export function formatTimestampForFileName(date: Date): string {
   const iso = date.toISOString();

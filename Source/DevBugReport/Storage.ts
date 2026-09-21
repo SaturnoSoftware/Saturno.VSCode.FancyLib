@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 /**
- * VSCODEKIT-0019: the local file sink for a rendered BugReport. Takes a
+ * The local file sink for a rendered BugReport. Takes a
  * default directory (the caller resolves that from a vscode
  * ExtensionContext's global storage - this module never imports "vscode"
  * or talks to Tasker/Brain) and an optional user-configured directory,

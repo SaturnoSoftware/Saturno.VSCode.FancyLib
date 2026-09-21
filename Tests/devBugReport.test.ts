@@ -238,7 +238,7 @@ describe("Markdown escaping (FBR-08): hostile titles and content", () => {
   });
 });
 
-describe("Filename normalization (VSCODEKIT-0018)", () => {
+describe("Filename normalization", () => {
   it("produces a stable, sortable, lowercase filename", () => {
     const name = buildReportFileName({
       capturedAtUtc: new Date("2026-09-15T12:34:56.000Z"),
@@ -347,7 +347,7 @@ function compiledDirToSourceDir(compiledDir: string): string {
   return [...segments.slice(0, outIndex), ...segments.slice(outIndex + 1)].join(path.sep);
 }
 
-describe("Domain boundary (VSCODEKIT-0018): no vscode, filesystem, Git, Tasker, Brain or network import", () => {
+describe("Domain boundary: no vscode, filesystem, Git, Tasker, Brain or network import", () => {
   const DEV_BUG_REPORT_DIR = path.join(compiledDirToSourceDir(__dirname), "..", "Source", "DevBugReport");
   const FORBIDDEN_MODULES = [
     "vscode",
@@ -357,7 +357,7 @@ describe("Domain boundary (VSCODEKIT-0018): no vscode, filesystem, Git, Tasker, 
     "https", "node:https",
     "net", "node:net",
   ];
-  // Storage.ts (VSCODEKIT-0019) is the one sanctioned local-file-sink
+  // Storage.ts is the one sanctioned local-file-sink
   // exception to the "no filesystem" rule - it still may never import
   // vscode, child_process or a network module, which the loop below checks
   // by filtering FORBIDDEN_MODULES down instead of skipping the file.
