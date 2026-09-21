@@ -2,8 +2,8 @@
   "name": "saturno-fancylib",
   "displayName": "Saturno.VSCode.FancyLib",
   "description": "Shared kit for the Saturno Fancy VS Code extensions: comment-syntax resolution, editor helpers, typed configuration reads and value normalisation.",
-  "version": "1.2.0",
-  "build": 3,
+  "version": "1.3.0",
+  "build": 4,
   "license": "GPL-3.0-only",
   "private": true,
   "repository": {
@@ -14,9 +14,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "compile": "tsc -p tests/tsconfig.json",
-    "test": "npm run compile && node --test out/tests/*.test.js",
-    "lint": "eslint Source tests --ext ts"
+    "compile": "tsc -p Tests/tsconfig.json",
+    "test": "npm run compile && node --test out/Tests/*.test.js",
+    "lint": "eslint Source Tests --ext ts"
   },
   "dependencies": {
     "json5": "^2.2.3"

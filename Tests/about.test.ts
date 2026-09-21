@@ -1,6 +1,7 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert";
-import { RenderAboutPage, AboutPageData } from "../Source/AboutPage/RenderAboutPage";
+import { RenderAboutPage } from "../Source/AboutPage/RenderAboutPage";
+import { AboutPageData } from "../Source/AboutPage/AboutModel";
 
 const TEMPLATE =
   '<html><head><meta content="style-src {{cspSource}}; script-src \'nonce-{{nonce}}\';">' +

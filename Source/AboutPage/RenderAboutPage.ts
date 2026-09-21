@@ -17,64 +17,27 @@
 // -------------------------------------------------------------------------- //
 
 /**
- * One templating scheme for every Fancy extension's About panel: about.html
- * (the page shell + markup) and about.css (the look) are the checked-in
- * template; this file is the only code that turns a plain JSON data model
- * into the final HTML string. Nothing here reads a file or imports
- * "vscode" - the caller (each extension's own About.ts) owns loading
- * about.html's text and resolving webview URIs, since only it has a
- * vscode.Webview to resolve them through. Icons and product data always
- * come from the caller's model; this module owns no image assets.
+ * Turns an AboutPageData into the final HTML string, and nothing else.
+ *
+ * about.html (markup) and about.css (look) sit next to this file and are the
+ * checked-in template; this module is the only code that fills them in. It
+ * reads no file and imports no "vscode", so it is testable under plain
+ * node --test - AboutPanel.ts owns both of those concerns.
  */
 
 // -----------------------------------------------------------------------------
-export type AboutGlyphName = "github" | "website";
+import { EscapeHtml } from "../Utils";
+import { AboutApp, AboutGlyphName, AboutIconLink, AboutPageData } from "./AboutModel";
 
-// -----------------------------------------------------------------------------
-export interface AboutIconLink {
-  href: string;
-  label: string;
-  glyph: AboutGlyphName;
-}
-
-// -----------------------------------------------------------------------------
-export interface AboutApp {
-  iconUri: string;
-  iconAlt: string;
-  name: string;
-  description: string;
-  links: AboutIconLink[];
-}
-
-// -----------------------------------------------------------------------------
-export interface AboutHeader {
-  iconUri: string;
-  iconAlt: string;
-  name: string;
-  description: string;
-  version: string;
-  build: string;
-  legal: string;
-}
-
-// -----------------------------------------------------------------------------
-export interface AboutPageData {
-  cspSource: string;
-  styleUri: string;
-  extensionName: string;
-  header: AboutHeader;
-  publisher: AboutApp;
-  moreSoftware: AboutApp[];
-  changelogButtonLabel: string;
-  /** Caller-supplied CSP nonce for the page's one inline <script>. */
-  nonce: string;
-}
+//
+// GLYPHS
+//
 
 // currentColor SVGs instead of light/dark image pairs: a VS Code webview's
 // actual theme is the editor theme, so fill/stroke: currentColor tracks
 // --vscode-foreground automatically, in every theme, with one glyph.
 // -----------------------------------------------------------------------------
-const _GLYPHS: Record<AboutGlyphName, string> = {
+const GLYPHS: Record<AboutGlyphName, string> = {
   github:
     '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false">' +
     '<path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 ' +
@@ -91,22 +54,16 @@ const _GLYPHS: Record<AboutGlyphName, string> = {
     '-3.8 9c-2.4-2.4-3.8-5.6-3.8-9s1.4-6.6 3.8-9z"/></svg>',
 };
 
-// -----------------------------------------------------------------------------
-function _EscapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+//
+// RENDERING
+//
 
 // -----------------------------------------------------------------------------
 function _RenderIconLink(link: AboutIconLink): string {
-  const label = _EscapeHtml(link.label);
+  const label = EscapeHtml(link.label);
   return (
-    `<a class="link-btn" href="${_EscapeHtml(link.href)}" aria-label="${label}" title="${label}">` +
-    `${_GLYPHS[link.glyph]}</a>`
+    `<a class="link-btn" href="${EscapeHtml(link.href)}" aria-label="${label}" title="${label}">` +
+    `${GLYPHS[link.glyph]}</a>`
   );
 }
 
@@ -115,41 +72,38 @@ function _RenderToolCard(app: AboutApp): string {
   const links_html = app.links.map(_RenderIconLink).join("");
   return (
     `<section class="card app-card app-card-tool">` +
-    `<img class="app-card-icon" src="${_EscapeHtml(app.iconUri)}" alt="${_EscapeHtml(app.iconAlt)}">` +
+    `<img class="app-card-icon" src="${EscapeHtml(app.iconUri)}" alt="${EscapeHtml(app.iconAlt)}">` +
     `<div class="app-card-text">` +
-    `<span class="app-card-name">${_EscapeHtml(app.name)}</span>` +
-    `<span class="app-card-desc muted">${_EscapeHtml(app.description)}</span>` +
+    `<span class="app-card-name">${EscapeHtml(app.name)}</span>` +
+    `<span class="app-card-desc muted">${EscapeHtml(app.description)}</span>` +
     `</div>` +
     (app.links.length > 0 ? `<div class="app-card-links">${links_html}</div>` : "") +
     `</section>`
   );
 }
 
-/**
- * Fills `templateHtml` (about.html's text, loaded by the caller) with
- * `data`. Always the same templating; only the data changes.
- */
+/** Fills `templateHtml` (about.html's text, loaded by the caller) with `data`. */
 // -----------------------------------------------------------------------------
 export function RenderAboutPage(templateHtml: string, data: AboutPageData): string {
   const tokens: Record<string, string> = {
     cspSource: data.cspSource,
     nonce: data.nonce,
     styleUri: data.styleUri,
-    extensionName: _EscapeHtml(data.extensionName),
-    headerIconUri: _EscapeHtml(data.header.iconUri),
-    headerIconAlt: _EscapeHtml(data.header.iconAlt),
-    headerName: _EscapeHtml(data.header.name),
-    headerDescription: _EscapeHtml(data.header.description),
-    headerVersion: _EscapeHtml(data.header.version),
-    headerBuild: _EscapeHtml(data.header.build),
-    headerLegal: _EscapeHtml(data.header.legal),
-    publisherIconUri: _EscapeHtml(data.publisher.iconUri),
-    publisherIconAlt: _EscapeHtml(data.publisher.iconAlt),
-    publisherName: _EscapeHtml(data.publisher.name),
-    publisherDescription: _EscapeHtml(data.publisher.description),
+    extensionName: EscapeHtml(data.extensionName),
+    headerIconUri: EscapeHtml(data.header.iconUri),
+    headerIconAlt: EscapeHtml(data.header.iconAlt),
+    headerName: EscapeHtml(data.header.name),
+    headerDescription: EscapeHtml(data.header.description),
+    headerVersion: EscapeHtml(data.header.version),
+    headerBuild: EscapeHtml(data.header.build),
+    headerLegal: EscapeHtml(data.header.legal),
+    publisherIconUri: EscapeHtml(data.publisher.iconUri),
+    publisherIconAlt: EscapeHtml(data.publisher.iconAlt),
+    publisherName: EscapeHtml(data.publisher.name),
+    publisherDescription: EscapeHtml(data.publisher.description),
     publisherLinksHtml: data.publisher.links.map(_RenderIconLink).join(""),
     moreSoftwareHtml: data.moreSoftware.map(_RenderToolCard).join(""),
-    changelogButtonLabel: _EscapeHtml(data.changelogButtonLabel),
+    changelogButtonLabel: EscapeHtml(data.changelogButtonLabel),
   };
 
   let html = templateHtml;

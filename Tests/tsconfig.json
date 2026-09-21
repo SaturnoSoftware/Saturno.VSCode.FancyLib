@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "rootDir": "..",
+    "baseUrl": "..",
+    "outDir": "../out",
+    "types": ["node"]
+  },
+  "//": "Source/ is included wholesale rather than file by file: the explicit list this replaced silently skipped type-checking for any module nobody remembered to add to it.",
+  "include": ["./**/*.test.ts", "../Source/**/*.ts"],
+  "exclude": ["../node_modules"]
+}
