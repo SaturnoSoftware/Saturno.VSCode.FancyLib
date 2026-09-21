@@ -31,17 +31,17 @@ export * as Utils from "./Utils";
 export * as AboutPage from "./AboutPage/RenderAboutPage";
 
 // -----------------------------------------------------------------------------
-// VSCODEKIT-0018: the shared "Open Bug" development-only capability's pure
-// domain. See DevBugReport/index.ts's own header for the full export list.
-export * from "./DevBugReport";
-
-// -----------------------------------------------------------------------------
-// VSCODEKIT-0020: the Open Bug panel workflow orchestrated against injected
-// ports - see DevBugReportPanel.ts's own header for why it lives outside
-// DevBugReport/ despite never importing vscode itself.
-export * from "./DevBugReportPanel";
-
-// -----------------------------------------------------------------------------
-// VSCODEKIT-0021: the build-channel isolation contract every consumer's own
-// production-artifact acceptance test checks a real build against.
-export * from "./BuildIsolation";
+// VSCODEKIT-0026: what is deliberately NOT here.
+//
+// The development-only Open Bug domain (DevBugReport, DevBugReportPanel) used
+// to be re-exported from this file. A static re-export is a static
+// dependency, so TypeScript compiled it into every consumer's production
+// build - a store artifact carrying a bug-reporting domain it had no command
+// to invoke. It now lives behind its own entry point: a dev-only module
+// imports ".../FancyLib/Source/Debug", and tsconfig.prod.json excludes that
+// module, so a production build cannot reach it. See Debug/index.ts.
+//
+// BuildIsolation is likewise absent on purpose: it is the contract a
+// consumer's own acceptance test checks a real build against, so it is
+// imported directly from "./BuildIsolation" by that test and has no business
+// in the runtime barrel.
