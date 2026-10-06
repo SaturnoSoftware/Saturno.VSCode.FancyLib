@@ -2,7 +2,8 @@ param(
     [string]$ProjectRoot = (Split-Path $PSScriptRoot -Parent),
     [ValidateSet("development", "production")][string]$Environment = "development",
     [int]$BuildNumber,
-    [string]$BuildOutputDir
+    [string]$BuildOutputDir,
+    [string]$StepResultPath
 )
 
 $ErrorActionPreference = "Stop"
@@ -37,5 +38,10 @@ Copy-Item -Path (Join-Path $ProjectRoot "Source") -Destination $BuildOutputDir -
 Copy-Item -LiteralPath (Join-Path $ProjectRoot "package.json") -Destination $BuildOutputDir -Force
 Copy-Item -LiteralPath (Join-Path $ProjectRoot "LICENSE.txt") -Destination $BuildOutputDir -Force
 Copy-Item -LiteralPath (Join-Path $ProjectRoot "README.md") -Destination $BuildOutputDir -Force
+
+if (-not [string]::IsNullOrWhiteSpace($StepResultPath)) {
+    @{ schema = "saturno-spb-step-result/v1"; step = "build"; status = "success"; artifacts = @("Source/index.ts") } |
+        ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $StepResultPath -Encoding utf8
+}
 
 Write-Host "==> Done"

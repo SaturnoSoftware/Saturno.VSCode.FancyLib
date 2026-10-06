@@ -1,0 +1,7 @@
+{
+  "schema": "saturno-spb-project/v2",
+  "platform": "node-typescript",
+  "publication": {
+    "github_release": true
+  }
+}
