@@ -11,14 +11,7 @@
     "outDir": "../out",
     "types": ["node"]
   },
-  "include": [
-    "./**/*.test.ts",
-    "../src/CommentSyntax.ts",
-    "../src/CommentSyntaxCore.ts",
-    "../src/Types.ts",
-    "../src/Utils.ts",
-    "../src/ConfigUtils.ts",
-    "../src/index.ts"
-  ],
+  "//": "Source/ is included wholesale rather than file by file: the explicit list this replaced silently skipped type-checking for any module nobody remembered to add to it.",
+  "include": ["./**/*.test.ts", "../Source/**/*.ts"],
   "exclude": ["../node_modules"]
 }

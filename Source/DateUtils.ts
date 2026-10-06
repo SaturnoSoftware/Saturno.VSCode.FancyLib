@@ -8,47 +8,37 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : CommentSyntaxCore.ts                                           //
-// Project   : Saturno.VSCodeKit                                              //
-// Date      : 2026-05-28                                                     //
+// File      : DateUtils.ts                                                   //
+// Project   : Saturno.VSCode.FancyLib                                        //
+// Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
 
-import { CommentSyntax } from "./Types";
+// -----------------------------------------------------------------------------
+import * as LogUtils from "./LogUtils";
 
-export interface LanguageComments {
-  lineComment?: string;
-  blockComment?: [string, string];
+// -----------------------------------------------------------------------------
+export function FormatDateYYYYMMDD(date: Date): string {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 // -----------------------------------------------------------------------------
-export function resolveCommentSyntaxFromComments(comments: LanguageComments | null | undefined): CommentSyntax | null {
-  if (!comments) {
+export function ParseDate(text: string): Date | null {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+    LogUtils.Warn(`Invalid git date "${text}".`);
     return null;
   }
 
-  if (comments.lineComment) {
-    const lineComment = comments.lineComment;
-    return {
-      singleLineStart: lineComment,
-      singleLineEnd: "",
-      multiLineStart: lineComment,
-      multiLineMiddle: lineComment,
-      multiLineEnd: lineComment,
-    };
+  const parsed = new Date(`${text}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) {
+    LogUtils.Warn(`Failed to parse git date "${text}".`);
+    return null;
   }
 
-  if (comments.blockComment) {
-    const [open, close] = comments.blockComment;
-    return {
-      singleLineStart: open,
-      singleLineEnd: close,
-      multiLineStart: open,
-      multiLineMiddle: open[open.length - 1] ?? open,
-      multiLineEnd: close,
-    };
-  }
-
-  return null;
+  return parsed;
 }

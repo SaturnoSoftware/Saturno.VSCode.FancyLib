@@ -8,17 +8,19 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : index.ts                                                       //
-// Project   : Saturno.VSCodeKit                                              //
-// Date      : 2026-05-19                                                     //
+// File      : OSUtils.ts                                                     //
+// Project   : Saturno.VSCode.FancyLib                                        //
+// Date      : 2026-09-20                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
 
-export { CommentSyntax } from "./Types";
-export { getCommentSyntax, getCommentSyntaxForEditor } from "./CommentSyntax";
-export { resolveCommentSyntaxFromComments } from "./CommentSyntaxCore";
-export type { LanguageComments } from "./CommentSyntaxCore";
-export { getActiveEditor, getActiveFilePath, showError } from "./EditorUtils";
-export { clamp, normalizeInteger, normalizeChar, normalizeStringArray } from "./Utils";
-export { getConfigValue } from "./ConfigUtils";
+// -----------------------------------------------------------------------------
+import os from "os";
+
+// -----------------------------------------------------------------------------
+export function GetCurrentUserName(): string
+{
+  return os.userInfo().username
+}

@@ -1,16 +1,16 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert/strict";
-import { resolveCommentSyntaxFromComments } from "../src/CommentSyntaxCore";
+import { _ResolveCommentSyntaxFromComments } from "../Source/CommentUtils";
 
-describe("resolveCommentSyntaxFromComments", () => {
+describe("_ResolveCommentSyntaxFromComments", () => {
   it("returns null for missing or empty language comment configuration", () => {
-    assert.strictEqual(resolveCommentSyntaxFromComments(undefined), null);
-    assert.strictEqual(resolveCommentSyntaxFromComments(null), null);
-    assert.strictEqual(resolveCommentSyntaxFromComments({}), null);
+    assert.strictEqual(_ResolveCommentSyntaxFromComments(undefined), null);
+    assert.strictEqual(_ResolveCommentSyntaxFromComments(null), null);
+    assert.strictEqual(_ResolveCommentSyntaxFromComments({}), null);
   });
 
   it("preserves line-comment tokens exactly", () => {
-    assert.deepStrictEqual(resolveCommentSyntaxFromComments({ lineComment: "#" }), {
+    assert.deepStrictEqual(_ResolveCommentSyntaxFromComments({ lineComment: "#" }), {
       singleLineStart: "#",
       singleLineEnd: "",
       multiLineStart: "#",
@@ -21,7 +21,7 @@ describe("resolveCommentSyntaxFromComments", () => {
 
   it("prefers line comments over block comments when both are available", () => {
     assert.deepStrictEqual(
-      resolveCommentSyntaxFromComments({
+      _ResolveCommentSyntaxFromComments({
         lineComment: "//",
         blockComment: ["/*", "*/"],
       }),
@@ -36,7 +36,7 @@ describe("resolveCommentSyntaxFromComments", () => {
   });
 
   it("uses block comment open and close tokens when no line comment is available", () => {
-    assert.deepStrictEqual(resolveCommentSyntaxFromComments({ blockComment: ["<!--", "-->"] }), {
+    assert.deepStrictEqual(_ResolveCommentSyntaxFromComments({ blockComment: ["<!--", "-->"] }), {
       singleLineStart: "<!--",
       singleLineEnd: "-->",
       multiLineStart: "<!--",
@@ -46,7 +46,7 @@ describe("resolveCommentSyntaxFromComments", () => {
   });
 
   it("handles one-character block delimiters without widening the syntax token", () => {
-    assert.deepStrictEqual(resolveCommentSyntaxFromComments({ blockComment: ["{", "}"] }), {
+    assert.deepStrictEqual(_ResolveCommentSyntaxFromComments({ blockComment: ["{", "}"] }), {
       singleLineStart: "{",
       singleLineEnd: "}",
       multiLineStart: "{",

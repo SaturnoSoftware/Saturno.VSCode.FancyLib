@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "status": "active",
+  "source": "Scaffold criado em 2026-08-28 pela VSCODEKIT-0009.",
+  "notes": "O bloco `stack` que a WSPROC-0058 (A-15) vai definir ainda nao existe em nenhum repositorio do workspace, entao este arquivo segue a forma que o vscode-fancy-align ja usa. Quando o formato for decidido, esta e uma das entradas a atualizar: a stack e TypeScript, plataforma extensao do VS Code, distribuida como submodulo git e nao como pacote npm."
+}

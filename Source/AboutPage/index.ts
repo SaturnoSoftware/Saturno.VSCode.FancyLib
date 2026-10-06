@@ -8,17 +8,18 @@
 //                          .   '=.__.=' `='      *                           //
 //                                                                            //
 //                                                                            //
-// File      : Types.ts                                                       //
-// Project   : Saturno.VSCodeKit                                              //
-// Date      : 2026-05-19                                                     //
+// File      : index.ts                                                       //
+// Project   : Saturno.VSCode.FancyLib                                        //
+// Date      : 2026-09-21                                                     //
 // Copyright : Saturno Software - 2026                                        //
 // Author    : mateusdigital <hello@mateus.digital>                           //
+// License   : GPLv3                                                          //
 // -------------------------------------------------------------------------- //
 
-export interface CommentSyntax {
-  singleLineStart: string;
-  singleLineEnd: string;
-  multiLineStart: string;
-  multiLineMiddle: string;
-  multiLineEnd: string;
-}
+// The About domain: the data models, the pure renderer, and the vscode panel
+// that connects them. An extension normally needs only ShowAboutPanel and
+// AboutSpec; the rest is exported for tests.
+// -----------------------------------------------------------------------------
+export * from "./AboutModel";
+export * from "./RenderAboutPage";
+export * from "./AboutPanel";
