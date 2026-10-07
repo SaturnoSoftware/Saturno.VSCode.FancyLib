@@ -16,7 +16,6 @@ if ([string]::IsNullOrWhiteSpace($PackageOutputDir) -or [string]::IsNullOrWhiteS
 }
 
 $Payload = Join-Path $PackageOutputDir "source"
-New-Item -ItemType Directory -Force -Path $PackageOutputDir | Out-Null
 New-Item -ItemType Directory -Force -Path $Payload | Out-Null
 Copy-Item -LiteralPath $BuildOutputDir -Destination $Payload -Recurse -Force
 $ArchiveName = "$ReleaseName-source.zip"

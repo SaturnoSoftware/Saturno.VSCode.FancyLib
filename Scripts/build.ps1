@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).ProviderPath
 
 if ([string]::IsNullOrWhiteSpace($BuildOutputDir)) {
-    $BuildOutputDir = Join-Path $ProjectRoot "__BUILD/_staging"
+    throw "SPB must provide -BuildOutputDir."
 }
 
 Write-Host "==> Building Saturno.VSCode.FancyLib"
@@ -25,9 +25,6 @@ try {
 finally {
     Pop-Location
 }
-
-Remove-Item -LiteralPath $BuildOutputDir -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force -Path $BuildOutputDir | Out-Null
 
 # This library has no VS Code extension of its own and no npm publish - per VERSION.json
 # it is distributed as a git submodule at the TypeScript-source level, and each of the
