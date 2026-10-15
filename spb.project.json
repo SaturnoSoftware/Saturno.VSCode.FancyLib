@@ -1,7 +1,30 @@
 {
   "schema": "saturno-spb-project/v2",
-  "platform": "node-typescript",
+  "family": "fancy",
+  "platform": "node-source-library",
   "publication": {
     "github_release": true
+  },
+  "driver": {
+    "native_build_script": "compile",
+    "dependency_mode": "ci",
+    "output_directory": "source",
+    "build_items": [
+      "Source",
+      "package.json",
+      "LICENSE.txt"
+    ],
+    "required_files": [
+      "Source/index.ts"
+    ],
+    "package_subdirectory": "source",
+    "package_items": [
+      "Source",
+      "package.json",
+      "LICENSE.txt"
+    ],
+    "package_metadata_files": [
+      "README.md"
+    ]
   }
 }
